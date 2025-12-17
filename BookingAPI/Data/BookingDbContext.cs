@@ -11,4 +11,6 @@ public class BookingDbContext : DbContext
     }
     
     public DbSet<User> Users { get; set; }
+    public DbSet<Desk> Desks { get; set; }
+    public DbSet<Reservation> Reservations { get; set; }
 }
