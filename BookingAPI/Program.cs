@@ -1,4 +1,5 @@
 using BookingAPI.Data;
+using BookingAPI.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,6 +8,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddDbContext<BookingDbContext>(options =>
     options.UseInMemoryDatabase("BookingDb"));
+builder.Services.AddScoped<IUsersRepository, UsersRepository>();
+builder.Services.AddScoped<IDesksRepository, DesksRepository>();
+builder.Services.AddScoped<IReservationsRepository, ReservationsRepository>();
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
