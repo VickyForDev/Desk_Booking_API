@@ -8,12 +8,7 @@ public static class DeskMappers
     public static DeskDto ToDeskDto(this Desk desk) =>
         new DeskDto(
             desk.Id,
-            desk.State
+            desk.State,
+            desk.Reservations.Select(r => r.ToDeskReservationDto()).ToList()
         );
-
-    public static Desk ToDesk(this DeskDto deskDto) =>
-        new Desk
-        {
-            State = deskDto.State
-        };
 }

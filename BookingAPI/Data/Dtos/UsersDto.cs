@@ -5,3 +5,10 @@ public record UserDto(
     string FirstName,
     string LastName
 );
+
+public record FullUserDto(
+    int Id,
+    string FirstName,
+    string LastName,
+    IReadOnlyList<UserReservationDto> Reservations
+);

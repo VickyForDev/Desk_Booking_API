@@ -10,22 +10,11 @@ namespace BookingAPI.Controllers;
 public class DesksController(IDesksRepository desksRepository) : ControllerBase
 {
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<DeskDto>>> GetDesks()
+    public async Task<ActionResult<IEnumerable<DeskDto>>> GetDesks([FromQuery] DateOnly? from, [FromQuery] DateOnly? to)
     {
-        var desks = await desksRepository.GetAllAsync();
+        var desks = await desksRepository.GetAllByDateRangeAsync(from, to);
         var desksDto = desks.Select(g => g.ToDeskDto());
 
         return Ok(desksDto);
-    }
-    
-    [HttpGet]
-    [Route("{deskId}")]
-    public async Task<ActionResult<DeskDto>> GetDesk(int deskId)
-    {
-        var desk = await desksRepository.GetByIdAsync(deskId);
-        if (desk == null)
-            return NotFound();
-        
-        return Ok(desk.ToDeskDto());
     }
 }

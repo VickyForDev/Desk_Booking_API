@@ -11,11 +11,12 @@ public static class UserMappers
             user.FirstName,
             user.LastName
         );
-
-    public static User ToUser(this UserDto userDto) =>
-        new User
-        {
-            FirstName = userDto.FirstName,
-            LastName = userDto.LastName
-        };
+    
+    public static FullUserDto ToFullUserDto(this User user) =>
+        new FullUserDto(
+            user.Id,
+            user.FirstName,
+            user.LastName,
+            user.Reservations.Select(r => r.ToUserReservationDto()).ToList()   
+        );
 }
