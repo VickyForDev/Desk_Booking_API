@@ -41,8 +41,8 @@ public class CreateReservationDtoValidator : AbstractValidator<CreateReservation
             .WithMessage("Start date must be today or in the future.");
 
         RuleFor(x => x.EndDate).NotNull().WithMessage("End date is required.")
-            .GreaterThan(x => x.StartDate)
-            .WithMessage("End date must be after start date.");
+            .GreaterThanOrEqualTo(x => x.StartDate)
+            .WithMessage("End date must be after or same as start date.");
 
         RuleFor(x => x.UserId).NotNull().WithMessage("User id is required.");
     }

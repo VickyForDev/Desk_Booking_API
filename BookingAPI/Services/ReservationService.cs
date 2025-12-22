@@ -14,15 +14,15 @@ public class ReservationService(IReservationsRepository reservationsRepository):
 {
     public async Task CancelReservationAsync(Reservation reservation, DateOnly? date)
     {
-        if (!date.HasValue || date.Value == DateOnly.MinValue) {
-            await reservationsRepository.DeleteAsync(reservation);
-            return;
-        }
-        
         var today = DateOnly.FromDateTime(DateTime.Today);
         
         if (reservation.EndDate < today)
             throw new InvalidOperationException("You cannot cancel a reservation that has already ended.");
+        
+        if (!date.HasValue || date.Value == DateOnly.MinValue) {
+            await reservationsRepository.DeleteAsync(reservation);
+            return;
+        }
         
         if (date.HasValue && date.Value < today)
             throw new InvalidOperationException("You cannot cancel a date that is already in the past.");
