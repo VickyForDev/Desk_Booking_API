@@ -20,12 +20,12 @@ public class UsersController(IUsersRepository usersRepository) : ControllerBase
     
     [HttpGet]
     [Route("{userId}")]
-    public async Task<ActionResult<UserDto>> GetUser(int userId)
+    public async Task<ActionResult<FullUserDto>> GetUser(int userId)
     {
         var user = await usersRepository.GetByIdAsync(userId);
         if (user == null)
             return NotFound();
         
-        return Ok(user.ToUserDto());
+        return Ok(user.ToFullUserDto());
     }
 }

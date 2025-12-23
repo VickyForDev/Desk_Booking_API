@@ -25,7 +25,8 @@ public static class BookingDbSeeder
         {
             new () { FirstName = "John", LastName = "Doe" },
             new () { FirstName = "Jane", LastName = "Doe" },
-            new () { FirstName = "Alice", LastName = "Doe" }
+            new () { FirstName = "Alice", LastName = "Doe" },
+            new () { FirstName = "Mark", LastName = "Doe" }
         };
         
         context.Users.AddRange(users);
@@ -54,12 +55,16 @@ public static class BookingDbSeeder
     
     private static Task SeedReservationsAsync(BookingDbContext context, List<User> users, List<Desk> desks)
     {
+        var today = DateOnly.FromDateTime(DateTime.Today);
         context.AddRange(
-            new Reservation { StartDate = DateTime.Today.AddDays(1), EndDate = DateTime.Today.AddDays(3), User = users[0], Desk = desks[0] },
-            new Reservation { StartDate = DateTime.Today.AddDays(4), EndDate = DateTime.Today.AddDays(5), User = users[0], Desk = desks[3] },
-            new Reservation { StartDate = DateTime.Today.AddDays(4), EndDate = DateTime.Today.AddDays(4), User = users[1], Desk = desks[0] },
-            new Reservation { StartDate = DateTime.Today, EndDate = DateTime.Today.AddDays(2), User = users[2], Desk = desks[4] },
-            new Reservation { StartDate = DateTime.Today, EndDate = DateTime.Today, User = users[1], Desk = desks[8] }
+            new Reservation { StartDate = today.AddDays(1), EndDate = today.AddDays(3), User = users[0], Desk = desks[0] },
+            new Reservation { StartDate = today.AddDays(4), EndDate = today.AddDays(5), User = users[0], Desk = desks[3] },
+            new Reservation { StartDate = today.AddDays(4), EndDate = today.AddDays(4), User = users[1], Desk = desks[0] },
+            new Reservation { StartDate = today, EndDate = today.AddDays(2), User = users[2], Desk = desks[4] },
+            new Reservation { StartDate = today, EndDate = today, User = users[1], Desk = desks[8] },
+            new Reservation { StartDate = today, EndDate = today, User = users[0], Desk = desks[9] },
+            new Reservation { StartDate = today.AddDays(-10), EndDate = today.AddDays(-8), User = users[0], Desk = desks[0] },
+            new Reservation { StartDate = today.AddDays(-15), EndDate = today.AddDays(-15), User = users[0], Desk = desks[0] }
         );
         
         return Task.CompletedTask;

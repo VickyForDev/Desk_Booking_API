@@ -9,16 +9,22 @@ public static class ReservationMappers
         new ReservationDto(
             reservation.Id,
             reservation.StartDate,
+            reservation.EndDate
+        );
+    
+    public static UserReservationDto ToUserReservationDto(this Reservation reservation) =>
+        new UserReservationDto(
+            reservation.Id,
+            reservation.StartDate,
             reservation.EndDate,
-            reservation.UserId,
             reservation.DeskId
         );
     
-    public static Reservation ToReservation(this ReservationDto reservationDto) =>
-        new Reservation{
-            StartDate = reservationDto.StartDate,
-            EndDate = reservationDto.EndDate,
-            UserId = reservationDto.UserId,
-            DeskId = reservationDto.DeskId
-        };
+    public static DeskReservationDto ToDeskReservationDto(this Reservation reservation) =>
+        new DeskReservationDto(
+            reservation.Id,
+            reservation.StartDate,
+            reservation.EndDate,
+            reservation.User.ToUserDto()
+        );
 }
